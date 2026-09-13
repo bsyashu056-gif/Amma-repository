@@ -1,26 +1,170 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Amma Restaurant</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amma Restaurant | Online Order</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#fff8ef;color:#24160e}header{background:#21130b;color:white;padding:16px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}.logo{font-size:24px;font-weight:800;color:#ffb72e}nav a{color:white;text-decoration:none;margin-left:14px}.hero{padding:55px 7%;color:white;background:linear-gradient(90deg,#21130eee,#21130b88),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover}.hero h1{font-size:clamp(40px,8vw,70px)}section{padding:45px 6%}.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.card,.box,.receipt{background:white;padding:20px;border-radius:15px;box-shadow:0 5px 18px #0001}.price{color:#e85d04;font-weight:bold}.btn{border:0;border-radius:24px;padding:11px 17px;background:#e85d04;color:white;font-weight:bold;cursor:pointer}.add{width:100%;margin-top:8px}.cart{position:fixed;right:15px;bottom:15px;background:#25d366;color:#fff;border:0;border-radius:28px;padding:15px 20px;font-weight:bold;z-index:10}.panel{display:none;max-width:800px;margin:20px auto}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}.form{display:grid;gap:10px;margin-top:15px}.form input,.form select{padding:12px;border:1px solid #ddd;border-radius:9px}.total{text-align:right;font-size:22px;font-weight:bold;margin:15px}.receipt{max-width:430px;margin:auto;font-family:monospace}.contact{text-align:center}.about{text-align:center;background:#2b180e;color:white}footer{background:#21130b;color:white;text-align:center;padding:20px}
-</style></head><body>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff8ef;color:#24160e}
+header{background:#21130b;color:#fff;padding:16px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{font-size:24px;font-weight:800;color:#ffb72e}nav a{color:#fff;text-decoration:none;margin-left:14px}
+.hero{padding:55px 7%;color:#fff;background:linear-gradient(90deg,#21130eee,#21130b88),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover}
+.hero h1{font-size:clamp(40px,8vw,70px)}section{padding:45px 6%}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card,.box,.receipt{background:#fff;padding:20px;border-radius:15px;box-shadow:0 5px 18px #0001}
+.price{color:#e85d04;font-weight:bold}.btn{border:0;border-radius:24px;padding:11px 17px;background:#e85d04;color:#fff;font-weight:bold;cursor:pointer}.add{width:100%;margin-top:8px}
+.cart{position:fixed;right:15px;bottom:15px;background:#25d366;color:#fff;border:0;border-radius:28px;padding:15px 20px;font-weight:bold;z-index:10}
+.panel{max-width:800px;margin:20px auto}.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #eee}
+.form{display:grid;gap:10px;margin-top:15px}.form input,.form select{padding:12px;border:1px solid #ddd;border-radius:9px}
+.total{text-align:right;font-size:22px;font-weight:bold;margin:15px}.receipt{max-width:430px;margin:auto;font-family:monospace}
+.about{text-align:center;background:#2b180e;color:#fff}.contact{text-align:center}footer{background:#21130b;color:#fff;text-align:center;padding:20px}
+</style>
+</head>
+<body>
 <header><div class="logo">AMMA RESTAURANT</div><nav><a href="#home">Home</a><a href="#menu">Menu</a><a href="#orders">Orders</a></nav></header>
 <section class="hero" id="home"><h1>Amma Restaurant</h1><p>Fresh food • Friendly service • Taste of home</p><a class="btn" href="#menu">Order Now</a></section>
-<section id="menu"><h2>🍽️ Menu</h2><div id="grid" class="menu"></div></section>
-<div id="cartPanel" class="panel box"><h2>🛒 Cart</h2><div id="items"></div><div id="total" class="total">Total: ₹0</div>
-<div class="form"><input id="customerName" placeholder="Customer name"><input id="customerPhone" placeholder="Phone number"><select id="orderType"><option>Dine-in</option><option>Takeaway</option><option>Delivery</option></select><select id="paymentMethod"><option>Cash / Pay at Restaurant</option><option>UPI / Online Payment</option></select><button class="btn" onclick="place()">Place Order & Generate Receipt</button></div></div>
-<section id="orders"><div id="receiptArea"></div></section>
+<section id="menu"><h2>🍽️ Menu</h2><div id="menuGrid" class="menu"></div></section>
+<section id="orders"><div id="cartPanel" class="box panel"><h2>🛒 Cart</h2><div id="cartItems"></div><div id="cartTotal" class="total">Total: ₹0</div>
+<div class="form"><input id="customerName" placeholder="Customer name"><input id="customerPhone" placeholder="Phone number" inputmode="tel">
+<select id="orderType"><option>Dine-in</option><option>Takeaway</option><option>Delivery</option></select>
+<select id="paymentMethod"><option>Cash / Pay at Restaurant</option><option>UPI / Online Payment</option></select>
+<button type="button" class="btn" id="placeOrderBtn">Place Order &amp; Generate Receipt</button></div></div>
+<div id="receiptArea"></div></section>
 <section class="about"><h2>About Amma Restaurant</h2><p>Delicious food and warm hospitality.</p></section>
-<section class="contact"><h2>Contact</h2><p>📞 9108062375 &nbsp; | &nbsp; 9035239678</p></section><footer>© 2026 Amma Restaurant</footer>
-<button class="cart" onclick="showCart()">🛒 Cart (<span id="count">0</span>)</button>
+<section class="contact"><h2>Contact</h2><p>📞 9108062375 &nbsp; | &nbsp; 9035239678</p></section>
+<footer>© 2026 Amma Restaurant</footer>
+<button type="button" class="cart" id="cartButton">🛒 Cart (<span id="cartCount">0</span>)</button>
+
 <script>
-const menu=[["Tea",15],["Coffee",15],["Water Bottle 10",10],["Water Bottle 20",20],["Idli Vada",50],["Dosa",50],["Masala Dosa",70],["Vada",30],["Idli",30],["Set Dosa",60],["Poori",60],["Upma",40],["Rice Bath",50],["Lemon Rice",50],["Veg Meals",100],["Special Meals",130],["Curd Rice",50],["Sambar Rice",50],["Veg Fried Rice",100],["Paneer Rice",130]];
-let cart={},last=null,orderNo=Number(localStorage.getItem("ammaOrderNo")||1000);
-grid.innerHTML=menu.map((x,i)=>`<div class="card"><h3>${x[0]}</h3><p class="price">₹${x[1]}</p><button class="btn add" onclick="add(${i})">Add to Cart</button></div>`).join("");
-function add(i){let[n,p]=menu[i];cart[n]=(cart[n]||0)+1;render();showCart()}
-function render(){let s="",t=0,c=0;Object.entries(cart).forEach(([n,q])=>{let p=menu.find(x=>x[0]==n)[1];t+=p*q;c+=q;s+=`<div class="row"><span>${n} × ${q}<br>₹${p*q}</span><span><button onclick="chg('${n}',-1)">−</button> <button onclick="chg('${n}',1)">+</button></span></div>`});items.innerHTML=s;total.textContent="Total: ₹"+t;count.textContent=c}
-function chg(n,d){cart[n]+=d;if(cart[n]<=0)delete cart[n];render()}
-function showCart(){cartPanel.style.display="block";cartPanel.scrollIntoView({behavior:"smooth"});render()}
-function place(){if(!Object.keys(cart).length)return alert("Add items first.");let n=document.getElementById("customerName").value.trim(),ph=document.getElementById("customerPhone").value.trim();if(!n||!ph)return alert("Enter name and phone.");orderNo++;localStorage.setItem("ammaOrderNo",orderNo);let t=0,rows="";Object.entries(cart).forEach(([x,q])=>{let p=menu.find(a=>a[0]==x)[1];t+=p*q;rows+=`<div>${x} × ${q} — ₹${p*q}</div>`});last={n,ph,type:document.getElementById("orderType").value,pay:document.getElementById("paymentMethod").value,t,rows,id:orderNo};receiptArea.innerHTML=`<div class="receipt" id="receipt"><h2>AMMA RESTAURANT</h2><hr>Order #${orderNo}<br>Name: ${esc(n)}<br>Phone: ${esc(ph)}<br>Type: ${document.getElementById("orderType").value}<br>Payment: ${document.getElementById("paymentMethod").value}<hr>${rows}<hr><b>TOTAL: ₹${t}</b><p>Thank you! 🙏</p></div><br><button class="btn" onclick="printReceipt()">🧾 Print / Save Receipt</button> <button class="btn" onclick="wa()">💬 WhatsApp</button>`;cart={};render();orders.scrollIntoView({behavior:"smooth"})}
-function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function printReceipt(){let w=open("","_blank");w.document.write(document.getElementById("receipt").outerHTML+"<script>print()<\/script>");w.document.close()}
-function wa(){if(!last)return;let m=`Hello Amma Restaurant! Order #${last.id}%0AName: ${last.n}%0APhone: ${last.ph}%0AType: ${last.type}%0APayment: ${last.pay}%0ATotal: ₹${last.t}`;open("https://wa.me/919108062375?text="+encodeURIComponent(m),"_blank")}
-</script></body></html>
+(function(){
+"use strict";
+const menu=[
+["Tea",15],["Coffee",15],["Water Bottle 10",10],["Water Bottle 20",20],
+["Idli Vada",50],["Dosa",50],["Masala Dosa",70],["Vada",30],["Idli",30],
+["Set Dosa",60],["Poori",60],["Upma",40],["Rice Bath",50],["Lemon Rice",50],
+["Veg Meals",100],["Special Meals",130],["Curd Rice",50],["Sambar Rice",50],
+["Veg Fried Rice",100],["Paneer Rice",130]
+];
+const cart={};
+let lastOrder=null;
+let orderNo=Number(localStorage.getItem("ammaOrderNo")||1000);
+
+const menuGrid=document.getElementById("menuGrid");
+const cartPanel=document.getElementById("cartPanel");
+const cartItems=document.getElementById("cartItems");
+const cartTotal=document.getElementById("cartTotal");
+const cartCount=document.getElementById("cartCount");
+const receiptArea=document.getElementById("receiptArea");
+const customerName=document.getElementById("customerName");
+const customerPhone=document.getElementById("customerPhone");
+const orderType=document.getElementById("orderType");
+const paymentMethod=document.getElementById("paymentMethod");
+const placeOrderBtn=document.getElementById("placeOrderBtn");
+const cartButton=document.getElementById("cartButton");
+
+menuGrid.innerHTML=menu.map(function(item,i){
+return '<div class="card"><h3>'+item[0]+'</h3><p class="price">₹'+item[1]+'</p><button type="button" class="btn add" data-index="'+i+'">Add to Cart</button></div>';
+}).join("");
+
+menuGrid.addEventListener("click",function(e){
+const btn=e.target.closest(".add");
+if(!btn)return;
+const i=Number(btn.dataset.index),name=menu[i][0];
+cart[name]=(cart[name]||0)+1;
+renderCart();
+showCart();
+});
+
+function renderCart(){
+let total=0,count=0,html="";
+Object.keys(cart).forEach(function(name){
+const qty=cart[name], item=menu.find(function(x){return x[0]===name;}), price=item[1];
+total+=price*qty; count+=qty;
+html+='<div class="row"><span>'+escapeHtml(name)+' × '+qty+'<br>₹'+(price*qty)+'</span><span><button type="button" onclick="window.amChr(\''+encodeURIComponent(name)+'\',-1)">−</button> <button type="button" onclick="window.amChr(\''+encodeURIComponent(name)+'\',1)">+</button></span></div>';
+});
+cartItems.innerHTML=html||"<p>Your cart is empty.</p>";
+cartTotal.textContent="Total: ₹"+total;
+cartCount.textContent=count;
+}
+
+window.amChr=function(encodedName,delta){
+const name=decodeURIComponent(encodedName);
+if(!cart[name])return;
+cart[name]+=delta;
+if(cart[name]<=0)delete cart[name];
+renderCart();
+};
+
+function showCart(){
+cartPanel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+cartButton.addEventListener("click",function(){
+showCart();
+renderCart();
+});
+
+placeOrderBtn.addEventListener("click",function(){
+try{
+const names=Object.keys(cart);
+if(!names.length){alert("Add items first.");return;}
+const name=customerName.value.trim(),phone=customerPhone.value.trim();
+if(!name||!phone){alert("Enter name and phone.");return;}
+
+let total=0,rows="";
+names.forEach(function(itemName){
+const item=menu.find(function(x){return x[0]===itemName;}),qty=cart[itemName],line=item[1]*qty;
+total+=line;
+rows+="<div>"+escapeHtml(itemName)+" × "+qty+" — ₹"+line+"</div>";
+});
+
+orderNo++;
+localStorage.setItem("ammaOrderNo",String(orderNo));
+lastOrder={id:orderNo,name:name,phone:phone,type:orderType.value,payment:paymentMethod.value,total:total};
+
+receiptArea.innerHTML='<div class="receipt" id="receipt"><h2>AMMA RESTAURANT</h2><hr>Order #'+orderNo+
+'<br>Name: '+escapeHtml(name)+'<br>Phone: '+escapeHtml(phone)+
+'<br>Type: '+escapeHtml(orderType.value)+'<br>Payment: '+escapeHtml(paymentMethod.value)+
+'<hr>'+rows+'<hr><b>TOTAL: ₹'+total+'</b><p>Thank you! 🙏</p></div>'+
+'<br><button type="button" class="btn" id="printBtn">🧾 Print / Save Receipt</button> '+
+'<button type="button" class="btn" id="whatsappBtn">💬 WhatsApp</button>';
+
+document.getElementById("printBtn").addEventListener("click",printReceipt);
+document.getElementById("whatsappBtn").addEventListener("click",sendWhatsApp);
+
+Object.keys(cart).forEach(function(k){delete cart[k];});
+renderCart();
+receiptArea.scrollIntoView({behavior:"smooth",block:"start"});
+}catch(err){
+alert("Order error: "+err.message);
+}
+});
+
+function printReceipt(){
+const receipt=document.getElementById("receipt");
+if(!receipt)return;
+const w=window.open("","_blank");
+if(!w){alert("Please allow pop-ups to print the receipt.");return;}
+w.document.write("<!doctype html><html><body>"+receipt.outerHTML+"<script>window.onload=function(){window.print()}<\/script></body></html>");
+w.document.close();
+}
+
+function sendWhatsApp(){
+if(!lastOrder)return;
+const message="Hello Amma Restaurant! Order #"+lastOrder.id+
+"\\nName: "+lastOrder.name+"\\nPhone: "+lastOrder.phone+
+"\\nType: "+lastOrder.type+"\\nPayment: "+lastOrder.payment+
+"\\nTotal: ₹"+lastOrder.total;
+window.open("https://wa.me/919108062375?text="+encodeURIComponent(message),"_blank");
+}
+
+function escapeHtml(s){
+return String(s).replace(/[&<>"']/g,function(c){
+return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+});
+}
+renderCart();
+})();
+</script>
+</body>
+</html>
